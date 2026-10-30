@@ -1,1 +1,391 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALSU TIER | Minecraft Rankings</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg:#080810;
+  --panel:#11111e;
+  --panel2:#171729;
+  --purple:#9855ff;
+  --pink:#d05cff;
+  --text:#f5f2ff;
+  --muted:#9290a8;
+  --border:#29243b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
+}
+header{
+  height:76px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  background:#0b0a14;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--purple)}
+nav{display:flex;gap:25px}
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+}
+nav a:hover{color:white}
+.discord{
+  background:var(--purple);
+  color:white;
+  padding:11px 17px;
+  border-radius:9px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+}
+.hero{
+  text-align:center;
+  padding:85px 20px 65px;
+  background:radial-gradient(ellipse at 50% 0%,#54258b55,transparent 65%);
+}
+.tag{
+  display:inline-block;
+  border:1px solid #8751d7;
+  color:#c99aff;
+  padding:8px 15px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+h1{
+  font-size:clamp(42px,8vw,76px);
+  font-weight:900;
+  margin:22px 0 12px;
+  letter-spacing:-3px;
+}
+h1 span{
+  color:var(--purple);
+  text-shadow:0 0 35px #9855ff66;
+}
+.hero p{color:var(--muted);font-size:14px;line-height:1.8}
+.stats{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin:35px auto 0;
+}
+.stat{
+  background:#151323;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:17px 27px;
+  min-width:135px;
+}
+.stat strong{display:block;font-size:24px;color:#c394ff}
+.stat small{color:var(--muted);font-size:10px;letter-spacing:1px}
+main{max-width:1100px;margin:auto;padding:35px 20px 70px}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+.section-title h2{font-size:21px}
+.section-title p{color:var(--muted);font-size:12px;margin-top:6px}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:22px;
+  margin-bottom:35px;
+}
+.modes{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.mode{
+  background:var(--panel2);
+  border:1px solid var(--border);
+  color:var(--muted);
+  border-radius:8px;
+  padding:10px 15px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:12px;
+}
+.mode.active,.mode:hover{
+  color:white;
+  border-color:var(--purple);
+  background:#35204f;
+}
+.search{
+  width:100%;
+  padding:14px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:#0b0b15;
+  color:white;
+  outline:none;
+  margin-bottom:18px;
+}
+.search:focus{border-color:var(--purple)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:500px}
+th{
+  color:var(--muted);
+  font-size:10px;
+  text-align:left;
+  padding:14px 12px;
+  letter-spacing:1px;
+  border-bottom:1px solid var(--border);
+}
+td{
+  padding:15px 12px;
+  border-bottom:1px solid #211e30;
+  font-size:13px;
+}
+tr:last-child td{border:0}
+.player{font-weight:800}
+.rank{color:#c39aff;font-weight:900}
+.tier{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:10px;
+  font-weight:900;
+  background:#542e7c;
+  color:#e3c5ff;
+}
+.ht1{background:#6b292f;color:#ffb4b4}
+.ht2{background:#633a25;color:#ffd1a5}
+.ht3{background:#514022;color:#ffe39c}
+.ht4{background:#254c45;color:#a6ffe0}
+.ht5{background:#24476b;color:#b6dcff}
+.lt1{background:#43316b;color:#d8bdff}
+.lt2{background:#35375c;color:#c5c9ff}
+.lt3{background:#354451;color:#b9e1ff}
+.lt4{background:#44404b;color:#ded9ea}
+.lt5{background:#393944;color:#c5c5d4}
+.profile{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:25px;
+  display:none;
+  margin-bottom:30px;
+}
+.profile h3{font-size:23px;margin-bottom:8px}
+.profile p{color:var(--muted);font-size:13px}
+.profile button{
+  margin-top:15px;
+  padding:9px 15px;
+  background:#302044;
+  color:white;
+  border:1px solid var(--purple);
+  border-radius:7px;
+  cursor:pointer;
+}
+footer{
+  text-align:center;
+  padding:30px 15px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:12px;
+}
+footer strong{color:var(--purple)}
+@media(max-width:650px){
+  header{padding:0 15px;height:65px}
+  nav{gap:12px}
+  nav a{font-size:10px}
+  .discord{display:none}
+  .logo{font-size:20px}
+  .hero{padding:65px 15px 45px}
+  .panel{padding:14px}
+  .stat{min-width:105px;padding:13px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ALSU<span>TIER</span></div>
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#rankings">RANKINGS</a>
+    <a href="#about">ABOUT</a>
+  </nav>
+  <a class="discord" href="#" target="_blank">DISCORD ↗</a>
+</header>
+
+<section class="hero" id="home">
+  <div class="tag">✦ MINECRAFT PVP NETWORK ✦</div>
+  <h1>ALSU <span>TIER</span></h1>
+  <p>Compete. Prove Yourself. Earn Your Rank.<br>
+  The home of competitive Minecraft PvP rankings.</p>
+  <div class="stats">
+    <div class="stat"><strong id="playersCount">6</strong><small>PLAYERS</small></div>
+    <div class="stat"><strong>11</strong><small>GAME MODES</small></div>
+    <div class="stat"><strong>HT1</strong><small>HIGHEST TIER</small></div>
+  </div>
+</section>
+
+<main>
+  <section id="rankings">
+    <div class="section-title">
+      <div>
+        <h2>⚔ Player Rankings</h2>
+        <p>Explore the best players in ALSU Tier.</p>
+      </div>
+      <span class="tag">SEASON 1</span>
+    </div>
+
+    <div class="panel">
+      <div class="modes" id="modes">
+        <button class="mode active" data-mode="Sword">Sword</button>
+        <button class="mode" data-mode="UHC">UHC</button>
+        <button class="mode" data-mode="Crystal">Crystal</button>
+        <button class="mode" data-mode="Axe">Axe</button>
+        <button class="mode" data-mode="Mace">Mace</button>
+        <button class="mode" data-mode="Spear Mace">Spear Mace</button>
+        <button class="mode" data-mode="Pot">Pot</button>
+        <button class="mode" data-mode="NethOP">NethOP</button>
+        <button class="mode" data-mode="SMP">SMP</button>
+        <button class="mode" data-mode="Bow">Bow</button>
+        <button class="mode" data-mode="DiaPot">DiaPot</button>
+      </div>
+
+      <input class="search" id="search" placeholder="⌕ Search players...">
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>RANK</th>
+              <th>PLAYER</th>
+              <th>TIER</th>
+              <th>REGION</th>
+            </tr>
+          </thead>
+          <tbody id="playerList"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="profile" id="profile">
+    <h3 id="profileName"></h3>
+    <p id="profileInfo"></p>
+    <button onclick="closeProfile()">Close Profile</button>
+  </div>
+
+  <section id="about">
+    <div class="section-title">
+      <div>
+        <h2>About ALSU Tier</h2>
+        <p>A competitive Minecraft PvP tierlist community.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:12px;color:#c394ff">Prove Your Skill.</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:2">
+        ALSU Tier is a Minecraft PvP ranking project where players
+        can compete, get tested and earn their place on the leaderboard.
+        Every game mode has its own ranking system.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 <strong>ALSU TIER</strong> — All Rights Reserved.
+  <br><br>Minecraft is a trademark of Mojang Studios.
+</footer>
+
+<script>
+const players = [
+  {name:"Alsu", region:"AS/AU", tiers:{
+    "Sword":"HT1","UHC":"HT2","Crystal":"HT3",
+    "Axe":"HT2","Mace":"HT1","Spear Mace":"HT1",
+    "Pot":"LT1","NethOP":"HT3","SMP":"HT2",
+    "Bow":"LT2","DiaPot":"HT3"
+  }},
+  {name:"PlayerTwo",region:"EU",tiers:{"Sword":"HT2","UHC":"HT3","Crystal":"LT1"}},
+  {name:"PlayerThree",region:"NA",tiers:{"Sword":"HT3","UHC":"LT1","Crystal":"HT2"}},
+  {name:"PlayerFour",region:"AS/AU",tiers:{"Sword":"LT1","UHC":"LT2","Crystal":"LT3"}},
+  {name:"PlayerFive",region:"EU",tiers:{"Sword":"LT2","UHC":"LT3","Crystal":"LT2"}},
+  {name:"PlayerSix",region:"SA",tiers:{"Sword":"LT3","UHC":"LT4","Crystal":"LT3"}}
+];
+
+let currentMode="Sword";
+
+function render(){
+  const query=document.getElementById("search").value.toLowerCase();
+  const sorted=players
+    .filter(p=>p.name.toLowerCase().includes(query))
+    .sort((a,b)=>tierValue(a.tiers[currentMode])-tierValue(b.tiers[currentMode]));
+
+  document.getElementById("playerList").innerHTML=sorted.map((p,i)=>{
+    const tier=p.tiers[currentMode]||"Unranked";
+    const cls=tier.toLowerCase();
+    return `<tr>
+      <td class="rank">#${i+1}</td>
+      <td><span class="player" onclick="openProfile('${p.name}')">${p.name}</span></td>
+      <td><span class="tier ${cls}">${tier}</span></td>
+      <td>${p.region}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="4">No players found.</td></tr>`;
+}
+
+function tierValue(tier){
+  if(!tier)return 999;
+  const order=["HT1","HT2","HT3","HT4","HT5","LT1","LT2","LT3","LT4","LT5"];
+  return order.indexOf(tier);
+}
+
+document.querySelectorAll(".mode").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".mode").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    currentMode=btn.dataset.mode;
+    render();
+  });
+});
+
+document.getElementById("search").addEventListener("input",render);
+
+function openProfile(name){
+  const p=players.find(x=>x.name===name);
+  document.getElementById("profileName").textContent=p.name;
+  document.getElementById("profileInfo").textContent=
+    "Region: "+p.region+" | "+Object.entries(p.tiers).map(([m,t])=>m+": "+t).join(" | ");
+  document.getElementById("profile").style.display="block";
+  document.getElementById("profile").scrollIntoView({behavior:"smooth"});
+}
+
+function closeProfile(){
+  document.getElementById("profile").style.display="none";
+}
+
+render();
+</script>
+</body>
+    </html>
+    
